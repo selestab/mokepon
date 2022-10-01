@@ -1,9 +1,15 @@
+// variables globales
 let ataqueJugador
 let ataqueEnemigo
 
+// iniciar juego
+
 function iniciarJuego() {
+    // variables
     let botonMascotaJugsador = document.getElementById("boton-mascota")
     botonMascotaJugsador.addEventListener("click", seleccionarMascotaJugador)
+
+    //eventos
 
     let botonFuego = document.getElementById("boton-fuego")
     botonFuego.addEventListener("click", ataqueFuego)
@@ -13,7 +19,7 @@ function iniciarJuego() {
     botonTierra.addEventListener("click", ataqueTierra)
 }
 
-
+// funciones para mascotas
 
 function seleccionarMascotaJugador() {
     let inputHipodoge = document.getElementById("Hipodoge")
@@ -55,6 +61,7 @@ function SeccionarMascotaEnemigo() {
     }
 
 }
+// funciones para ataques
 
 function ataqueFuego() {
     ataqueJugador = "Fuego"
@@ -80,8 +87,18 @@ function ataqueAleatorioEnemigo() {
     else {
         ataqueEnemigo = "Tierra"
     }
+    crearMensaje()
 }
+// funciones para mensajes
 
+function crearMensaje(){
+    let sectionMensajes = document.getElementById("mensajes")
+
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = " Tu mascota ataco con " + ataqueJugador + ", la mascota del enemigo ataco con " + ataqueEnemigo + ", pendiente "
+      
+    sectionMensajes.appendChild(parrafo) 
+}
 
 
 function aleatorio(min, max) {
