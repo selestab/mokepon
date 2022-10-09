@@ -1,6 +1,8 @@
 // variables globales
 let ataqueJugador
 let ataqueEnemigo
+let vidasJugador = 3
+let vidasEnemigo = 3
 
 // iniciar juego
 
@@ -75,6 +77,8 @@ function ataqueTierra() {
     ataqueJugador = "Tierra"
     ataqueAleatorioEnemigo()
 }
+    // ataque aleatorio enemigo
+
 function ataqueAleatorioEnemigo() {
     ataqueAleatorio = aleatorio(1, 3)
 
@@ -87,19 +91,72 @@ function ataqueAleatorioEnemigo() {
     else {
         ataqueEnemigo = "Tierra"
     }
-    crearMensaje()
+    combate()
+    
+    }
+    // COMBATE
+
+    function combate() {
+        let spamVidasJugador = document.getElementById("vidas-jugador")
+        let spamVidasEnemigo = document.getElementById("vidas-enemigo")
+
+     if (ataqueEnemigo == ataqueJugador) {
+        crearMensaje("EMPATE")
+    }
+    else if (ataqueJugador == "Fuego" && ataqueEnemigo == "Tierra") {
+         crearMensaje("GANASTE")
+         vidasEnemigo--
+         spamVidasEnemigo. innerHTML = vidasEnemigo
+    }
+    else if (ataqueJugador == "Agua" && ataqueEnemigo == "Fuego") {
+        crearMensaje("GANASTE")
+        vidasEnemigo--
+        spamVidasEnemigo. innerHTML = vidasEnemigo
+    }
+    else if (ataqueJugador == "Tierra" && ataqueEnemigo == "Agua") {
+        crearMensaje("GANASTE")
+        vidasEnemigo--
+         spamVidasEnemigo. innerHTML = vidasEnemigo
+        }
+    else {
+        crearMensaje("PERDISTE")
+        vidasJugador--
+        spamVidasJugador. innerHTML = vidasJugador
+    
+    }
+
+    revisarVidas()
+
 }
+
+function revisarVidas () {
+    if (vidasEnemigo == 0) {
+        crearMensajeFinal ("FELICITACIONES! Ganaste :)") 
+    }
+    else if (vidasJugador == 0) {
+        crearMensajeFinal ("Lo siento perdiste :(")
+    }
+}
+
 // funciones para mensajes
 
-function crearMensaje(){
+function crearMensaje(resultado){
     let sectionMensajes = document.getElementById("mensajes")
 
     let parrafo = document.createElement("p")
-    parrafo.innerHTML = " Tu mascota ataco con " + ataqueJugador + ", la mascota del enemigo ataco con " + ataqueEnemigo + ", pendiente "
+    parrafo.innerHTML = " Tu mascota ataco con " + ataqueJugador + ", la mascota del enemigo ataco con " + ataqueEnemigo + " " + resultado
       
     sectionMensajes.appendChild(parrafo) 
 }
 
+function crearMensajeFinal(resultadoFinal) {
+    let sectionMensajes = document.getElementById("mensajes")
+
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = resultadoFinal
+      
+    sectionMensajes.appendChild(parrafo) 
+}
 
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
